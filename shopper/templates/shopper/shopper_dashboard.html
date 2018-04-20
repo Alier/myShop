@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  <h2>Welcome, {{ shopper.username }}!</h2>
+
+</ul>
+  <p>Pending orders:
+    {% for order, orderItems in orders %}
+    <div class="row">
+      <div class="col-sm-9">
+        <br> Order detail:
+        <br> order_id: {{ order.id }}
+        <br> delivery_address: {{ order.address }}
+        <br> city: {{ order.city }}
+        <br> zipcode: {{ order.postal_code }}
+        <br> created_time: {{ order.created }}
+        <br><br>
+        {% for item in orderItems %}
+        <div class="row">
+          <div class="col-8 col-sm-6">
+            <a href="{{ item.product.get_absolute_url }}">
+              <img src="{% if item.product.image %}{{ item.product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}" height=400 width=300>
+            </a>
+          </div>
+          <div class="col-4 col-sm-6">
+            {{ item.product.name }}
+          </div>
+          <div class="col-8 col-sm-6">
+            {{ item.price }}
+          </div>
+          <div class="col-4 col-sm-6">
+            {{ item.quantity }}
+          </div>
+        </div>
+        {% endfor %}
+        <br>
+        <form action="{% url 'shopper:take_order' %}" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="order_id" value="{{ order.id }}">
+          <input type="hidden" name="shopper_id" value="{{ shopper.id }}">
+          <input type="submit" class="submit_btn btn label-success" value="Accept" />
+        </form>
+        <br>
+      </div>
+    </div>
+    {% endfor %}
+  </p>
+{% endblock %}

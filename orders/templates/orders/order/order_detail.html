@@ -1,0 +1,25 @@
+{% load static %}
+<h1> Order detail:</h1>
+<h2> order_id: {{ order.id }} </h2>
+<h2> delivery_address: {{ order.address }} </h2>
+<h2> city: {{ order.city }}</h2>
+<h2> zipcode: {{ order.postal_code }}</h2>
+<h2> created_time: {{ order.created }}</h2>
+<h2> shopper: {{ order.shopper.username }}</h2>
+<br><br>
+<h3>Items in order:</h3>
+<br>
+<tbody>
+{% for item in orderitems %}
+    <tr>
+        <td>
+            <a href="{{ item.product.get_absolute_url }}">
+              <img src="{% if item.product.image %}{{ item.product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
+            </a>
+        </td>
+      </tr>
+      <tr>{{ item.product.name }}</tr>
+      <tr>{{ item.price }}</tr>
+      <tr>{{ item.quantity }}</tr>
+{% endfor %}
+</tbody>

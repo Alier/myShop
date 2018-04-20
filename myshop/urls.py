@@ -18,17 +18,12 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
-import core.views
+import shopper.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',core.views.home, name='home'),
-    #path('', include('consumer.urls', namespace='consumer')),
-    #path('shopper/', include('shopper.urls', namespace='shopper')),
-    path('login/', auth_views.login, {'template_name': 'core/login.html'}, name='login'),
-    path('logout/', auth_views.logout, {'next_page': 'login'}, name='logout'),
-    path('signup/', core.views.signup, name='signup'),
-    path('home/', core.views.home, name='home'),
+    path('', shopper.views.start, name='start'),
+    path('shopper/', include('shopper.urls', namespace='shopper')),
     path('cart/', include('cart.urls', namespace='cart')),
     path('orders/', include('orders.urls', namespace='orders')),
     path('payment/', include('payment.urls', namespace='payment')),

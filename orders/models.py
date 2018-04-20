@@ -1,6 +1,6 @@
 from django.db import models
 from shop.models import Product
-
+from django.contrib.auth.models import User
 
 class Order(models.Model):
     first_name = models.CharField(max_length=50)
@@ -12,6 +12,7 @@ class Order(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     paid = models.BooleanField(default=False)
+    shopper = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
 
     class Meta:
         ordering = ('-created',)

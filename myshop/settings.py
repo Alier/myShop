@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'cart',
     'orders',
     'payment',
-    'core',
+    #'consumer',
+    'shopper',
 ]
 
 MIDDLEWARE = [
@@ -60,7 +61,8 @@ ROOT_URLCONF = 'myshop.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'core/templates/core')],
+        'DIRS': [os.path.join(BASE_DIR, 'shopper/templates/shopper')],
+        #'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -136,6 +138,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 CART_SESSION_ID = 'cart'
 
-LOGIN_URL = 'login'
-LOGOUT_URL = 'logout'
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_URL = 'shopper:login'
+LOGOUT_URL = 'shopper:logout'
+LOGIN_REDIRECT_URL = 'shopper:dashboard'
